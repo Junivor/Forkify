@@ -81,7 +81,5 @@ const controlUpdateServings = (servings) => {
   recipeView.addHandlerServings(controlUpdateServings)
   searchView.addHandlerSubmit(controlSearchRecipe)
   paginationView.addHandlerClick(controlPagination)
+  console.log(test);
 })()
-
-
-
