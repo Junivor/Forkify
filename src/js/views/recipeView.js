@@ -71,7 +71,9 @@ class RecipeView extends View{
         </div>
       
         <div class="recipe__user-generated">
-          
+            <svg>
+              <use href="${icons}#${this._data.key ? 'icon-user' : ''}"></use>
+            </svg>
         </div>
         <button class="btn--round">
           <svg class="">
@@ -91,12 +93,12 @@ class RecipeView extends View{
         <h2 class="heading--2">How to cook it</h2>
         <p class="recipe__directions-text">
           This recipe was carefully designed and tested by
-          <span class="recipe__publisher">The Pioneer Woman</span>. Please check out
+          <span class="recipe__publisher">${this._data.publisher}</span>. Please check out
           directions at their website.
         </p>
         <a
           class="btn--small recipe__btn"
-          href="http://thepioneerwoman.com/cooking/pasta-with-tomato-cream-sauce/"
+          href="${this._data.sourceUrl}"
           target="_blank"
         >
           <span>Directions</span>

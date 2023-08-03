@@ -14,8 +14,19 @@ class PreviewView extends View {
             <h4 class="preview__title">${recipe.title}</h4>
             <p class="preview__publisher">${recipe.publisher}</p>
           </div>
+          ${recipe.key ? this._generateUserMarkup() : ''}
         </a>
       </li>
+    `
+  }
+
+  _generateUserMarkup() {
+    return `
+          <div class="preview__user-generated">
+            <svg>
+              <use href="${icons}#icon-user"></use>
+            </svg>
+          </div>
     `
   }
 }

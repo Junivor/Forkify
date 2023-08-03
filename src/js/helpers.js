@@ -11,7 +11,7 @@ const timeout = function (s) {
 export const AJAX = async (url, uploadData = null) => {
   try {
     const fetchData =  uploadData
-      ? fetch(`${API_URL}?search=${url}&key=${USER_API_KEY}`, {
+      ? fetch(url, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -19,7 +19,7 @@ export const AJAX = async (url, uploadData = null) => {
           body: JSON.stringify(uploadData)
         })
       : fetch(`${url}`)
-
+    console.log(fetchData);
     const res = await Promise.race([timeout(TIME_OUT_SEC), fetchData])
     const data = await res.json()
 

@@ -16,26 +16,25 @@ export default class View {
 
   update(data) {
     this._data = data
+    const newMarkup = this._generateMarkup()
 
-    const markup = this._generateMarkup()
-    const virtualDom = document.createRange().createContextualFragment(markup)
+    const virtualDOM = document.createRange().createContextualFragment(newMarkup)
 
-    const currentDom = Array.from(this._parentElement.querySelectorAll('*'))
-    const newDom = Array.from(virtualDom.querySelectorAll('*'))
+    const virtualElement = [...virtualDOM.querySelectorAll('*')]
+    const currentElement = [...this._parentElement.querySelectorAll('*')]
 
-    newDom.forEach((newEl, index) => {
-      const curEl = currentDom[index]
+    virtualElement.map((virEl, i) => {
+      const curEl = currentElement[i]
 
-      if (!newEl.isEqualNode(curEl) && newEl.firstChild?.nodeValue.trim() !== '') {
-        // console.log(newEl, !newEl.isEqualNode(curEl))
-        curEl.textContent = newEl.textContent
+      if (!virEl.isEqualNode(curEl) && virEl.firstChild?.nodeValue.trim() !== '') {
+        curEl.textContent = virEl.textContent
+
       }
 
-      if (!newEl.isEqualNode(curEl)) {
-        Array.from(newEl.attributes).forEach(attr => curEl.setAttribute(attr.name, attr.value))
+      if (!virEl.isEqualNode(curEl)) {
+       [...virEl.attributes].map(attr => curEl.setAttribute(attr.name, attr.value))
       }
     })
-
 
   }
 
@@ -65,6 +64,21 @@ export default class View {
             </div>
             <p>${msg}</p>
           </div>
+    `
+    this._clear()
+    this._parentElement.insertAdjacentHTML('afterbegin', markup)
+  }
+
+  renderMessage(msg = this._message) {
+    const markup = `
+        <div class="message">
+          <div>
+            <svg>
+              <use href="${icons}#icon-smile"></use>
+            </svg>
+          </div>
+          <p>${msg}</p>
+        </div>
     `
 
     this._clear()
